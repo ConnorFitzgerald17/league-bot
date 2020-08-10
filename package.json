@@ -1,0 +1,19 @@
+{
+  "name": "league-bot",
+  "version": "1.0.0",
+  "description": "Discord bot for league of legends stats",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Michiel Mulders",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "github:discordjs/discord.js",
+    "discord.js-commando": "github:discordjs/Commando",
+    "dotenv": "^8.2.0",
+    "lol-champions": "^10.16.1",
+    "node-fetch": "^2.6.0",
+    "querystring": "^0.2.0"
+  }
+}
