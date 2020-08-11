@@ -72,17 +72,25 @@ client.on("message", async (message) => {
     }
 
     const gameData = await GetLiveMatch(summonerId);
+
+    if (!gameData) {
+      return message.reply(`${argsName} is currently not in a game.`);
+    }
     const { blueTeam, redTeam } = gameData;
 
     var blueTeamString = "";
-    blueTeam.forEach(async function ({ name, tier, rank }) {
-      const string = `\n${name} - ${tier} ${rank}`;
+    blueTeam.forEach(async function ({ name, rank }) {
+      const string = `\n[${name}](https://na.op.gg/summoner/userName=${escape(
+        name
+      )}) - ${rank}`;
       blueTeamString += string;
     });
 
     var redTeamString = "";
-    redTeam.forEach(async function ({ name, tier, rank }) {
-      const string = `\n${name} - ${tier} ${rank}`;
+    redTeam.forEach(async function ({ name, rank }) {
+      const string = `\n[${name}](https://na.op.gg/summoner/userName=${escape(
+        name
+      )}) - ${rank}`;
 
       redTeamString += string;
     });
@@ -194,30 +202,37 @@ const GetLiveMatch = async (summonerId) => {
     }
   );
 
+  console.info(getLive.status);
   if (getLive.status !== 200) {
     return false;
   }
 
   const liveInfo = await getLive.json();
 
+  console.info(liveInfo);
   await Promise.all(
     liveInfo["participants"].map(
       async ({ teamId, summonerName, summonerId }, index) => {
         const ranking = await GetRank(summonerId);
-        const { rank, tier } = ranking[0];
+        let summonerRank = "Unranked";
+
+        if (ranking) {
+          const { rank, tier } = ranking[0];
+
+          summonerRank = `${tier} ${rank}`;
+        }
+
         if (teamId === blueTeamId) {
           blueTeam[index] = {
             name: summonerName,
             id: summonerId,
-            rank: rank,
-            tier: tier,
+            rank: summonerRank,
           };
         } else if (teamId === redTeamId) {
           redTeam[index] = {
             name: summonerName,
             id: summonerId,
-            rank: rank,
-            tier: tier,
+            rank: summonerRank,
           };
         }
       }
