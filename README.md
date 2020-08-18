@@ -21,3 +21,8 @@ This bot will show you the ranked stats for the given username. Including LP, W/
 - Other region support (Just NA right now)
 - Match stats
 - Live match players and winrates / ranks
+
+## Commands
+
+- "!rank" to get the rank of a player
+- "!match" to get the live match details of a player

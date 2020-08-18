@@ -8,8 +8,8 @@
     "lint": "eslint \"./**/*.js\" --max-warnings 0",
     "pretty": "prettier --write \"./**/*.js\""
   },
-  "author": "Michiel Mulders",
-  "license": "ISC",
+  "author": "Connor Fitzgerald",
+  "license": "MIT",
   "dependencies": {
     "discord.js": "github:discordjs/discord.js",
     "discord.js-commando": "github:discordjs/Commando",
